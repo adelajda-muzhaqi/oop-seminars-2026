@@ -9,7 +9,7 @@ public class Student {
 	private double gpa;
 	private final int enrolmentYear;
 	
-	// KONSTRUKTORI
+	// KONSTRUKTORI I PARE
 	
 	public Student(String studentId, String name, double gpa, int enrolmentYear) {
 		
@@ -31,6 +31,30 @@ public class Student {
         }
         this.enrolmentYear = enrolmentYear;
 	   }
+	
+	// KONSTRUKTORI I DYTE
+	
+	public Student(String studentId, String name, int enrolmentYear) {
+		if(studentId == null || student.isBlank()) {
+			throw new IllegalArgumentException("Id e studentit nuk mund te jete bosh.");
+		}
+		this.studentId = studentId;
+		
+		
+		
+		if(name == null || name.isBlank()) {
+			throw new IllegalArgumentException("Emri i studentit nuk mund te jete bosh.");
+		}
+		this.name = name;
+		
+		
+		
+		int currentYear = year.now().getValue();
+        if (enrolmentYear < 2000 || enrolmentYear > currentYear) {
+            throw new IllegalArgumentException("Viti i regjistrimit duhet të jete midis 2000 dhe " + currentYear);
+        }
+        this.enrolmentYear = enrolmentYear;
+	}
 
 	  // METODAT
 	
@@ -79,6 +103,13 @@ public class Student {
 	        return enrolmentYear;
 	    }
 	    
+	    @Override 
+	    public boolean equals(Object obj) {
+	    	if(this == obj) return  true;
+	    	if(!(obj instanceof Student)) return false;
+	    Student std = (Student) obj;    
+	    return this.studentId.equals((std.getStudentId()));
+}
 	    @Override
 	    public String toString() {
 	        return name + " (ID: " + studentId + ", GPA: " + gpa + ", Statusi: " + academicStanding() + ")";
