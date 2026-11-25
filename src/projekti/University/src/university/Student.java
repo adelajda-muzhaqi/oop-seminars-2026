@@ -13,7 +13,7 @@ public class Student {
 	
 	public Student(String studentId, String name, double gpa, int enrolmentYear) {
 		
-		if(studentId == null || student.isBlank()) {
+		if(studentId == null || studentId.isBlank()) {
 			throw new IllegalArgumentException("Id e studentit nuk mund te jete bosh.");
 		}
 		this.studentId = studentId;
@@ -23,9 +23,12 @@ public class Student {
 		}
 		this.name = name;
 		
-		this.gpa = 0.0;
+		if (gpa < 0.0 || gpa > 4.0) {
+		    throw new IllegalArgumentException("GPA duhet te jete midis 0.0 dhe 4.0: " + gpa);
+		}
+		this.gpa = gpa;
 		
-		int currentYear = year.now().getValue();
+		int currentYear = Year.now().getValue();
         if (enrolmentYear < 2000 || enrolmentYear > currentYear) {
             throw new IllegalArgumentException("Viti i regjistrimit duhet të jete midis 2000 dhe " + currentYear);
         }
@@ -35,7 +38,7 @@ public class Student {
 	// KONSTRUKTORI I DYTE
 	
 	public Student(String studentId, String name, int enrolmentYear) {
-		if(studentId == null || student.isBlank()) {
+		if(studentId == null || studentId.isBlank()) {
 			throw new IllegalArgumentException("Id e studentit nuk mund te jete bosh.");
 		}
 		this.studentId = studentId;
@@ -49,7 +52,7 @@ public class Student {
 		
 		
 		
-		int currentYear = year.now().getValue();
+		int currentYear = Year.now().getValue();
         if (enrolmentYear < 2000 || enrolmentYear > currentYear) {
             throw new IllegalArgumentException("Viti i regjistrimit duhet të jete midis 2000 dhe " + currentYear);
         }
@@ -74,7 +77,7 @@ public class Student {
 	
 	    public void updateGpa(double newGpa) {
 		if(newGpa < 0.0 || newGpa > 4.0) {
-			throw new IllegalArgumentExpection("Gpa duhet te jete midis 0.0 dhe 4.0.");
+			throw new IllegalArgumentException("Gpa duhet te jete midis 0.0 dhe 4.0.");
 		}
 		this.gpa = newGpa;
 	   }
@@ -83,7 +86,7 @@ public class Student {
 	    	if(gpa >= 2.0) {
 	    		return "Good standing";
 	    	} else if (gpa >= 1.5) {
-	    		"Academic probation";
+	    		return "Academic probation";
 	    	} else { 
 	    		return "Academic warning";
 	    	}
@@ -110,6 +113,7 @@ public class Student {
 	    Student std = (Student) obj;    
 	    return this.studentId.equals((std.getStudentId()));
 }
+	    
 	    @Override
 	    public String toString() {
 	        return name + " (ID: " + studentId + ", GPA: " + gpa + ", Statusi: " + academicStanding() + ")";
