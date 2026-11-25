@@ -1,17 +1,18 @@
 package university;
 
 public class Professor {
-    
+	
+	import java.util.Objects;
     private final String employeeId; 
     private String name;
     private String specialisation;
     private int yearsOfExperience;
-    private int counter = 2000;
+    private static int lastIdIssued = 2000;
     
     public Professor(String name, String specialisation, int yearsOfExperience) {
         
-        this.employeeId = "P" + counter;
-        counter++;
+    	lastIdIssued++;
+    	this.employeeId = "P" + lastIdIssued;
         
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Hapësira e emrit nuk mund të jetë bosh.");
@@ -47,10 +48,27 @@ public class Professor {
         yearsOfExperience++;
     }
    
+    public String getEmployeeId() { return employeeId; }
+    public String getName() { return name; }
+    public String getSpecialisation() { return specialisation; }
+    public int getYearsOfExperience() { return yearsOfExperience; }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Professor)) return false;
+        Professor other = (Professor) obj;
+        return employeeId.equals(other.employeeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId);
+    }
     @Override
     public String toString() {
         return "Professor [ID: " + employeeId + ", Name: " + name + 
                ", Specialisation: " + specialisation + ", Years: " + yearsOfExperience + 
                " (" + academicTitle() + ")]";
     }
-}
+
