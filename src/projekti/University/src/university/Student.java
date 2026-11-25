@@ -1,4 +1,8 @@
 package university;
+import java.util.ArrayList;
+import java.util.List;
+import java.time.Year;
+import java.util.Objects;
 
 public class Student {
 
@@ -8,6 +12,7 @@ public class Student {
 	private String name;
 	private double gpa;
 	private final int enrolmentYear;
+	private final List<Course> courses = new ArrayList<>();
 	
 	// KONSTRUKTORI I PARE
 	
@@ -105,6 +110,51 @@ public class Student {
 	    public int getEnrolmentYear() {
 	        return enrolmentYear;
 	    }
+	    
+	    public int getCourseCount() {
+	        return courses.size();
+	    }
+
+	    public boolean register(Course course) {
+	        if (course == null) return false;
+	        if (courses.size() >= 6) return false;
+	        if (courses.contains(course)) return false;
+	        courses.add(course);
+	        return true;
+	    }
+
+	    public boolean hasCourse(String courseCode) {
+	        for (Course c : courses) {
+	            if (c.getCourseCode().equals(courseCode)) {
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+
+	    public boolean drop(String courseCode) {
+	        for (Course c : courses) {
+	            if (c.getCourseCode().equals(courseCode)) {
+	                courses.remove(c);
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+
+	    public int totalCredits() {
+	        int total = 0;
+	        for (Course c : courses) {
+	            total += c.getCredits();
+	        }
+	        return total;
+	    }
+
+	    public List<Course> getCourses() {
+	        return List.copyOf(courses);
+	    }
+	    
+	    
 	    
 	    @Override  
 	    public boolean equals(Object obj) {
