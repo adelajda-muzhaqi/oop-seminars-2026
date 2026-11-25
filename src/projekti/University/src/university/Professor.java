@@ -97,4 +97,5 @@ public class Professor {
                ", Specialisation: " + specialisation + ", Years: " + yearsOfExperience + 
                " (" + academicTitle() + ")]";
     }
+}
 
