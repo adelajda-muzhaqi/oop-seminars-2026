@@ -1,13 +1,19 @@
 package university;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+
 public class Professor {
 	
-	import java.util.Objects;
+
     private final String employeeId; 
     private String name;
     private String specialisation;
     private int yearsOfExperience;
     private static int lastIdIssued = 2000;
+    private final List<Course> courses = new ArrayList<>();
     
     public Professor(String name, String specialisation, int yearsOfExperience) {
         
@@ -60,7 +66,27 @@ public class Professor {
         Professor other = (Professor) obj;
         return employeeId.equals(other.employeeId);
     }
+    public boolean assign(Course course) {
+        if (course == null) return false;
+        if (courses.size() >= 4) return false;
+        if (courses.contains(course)) return false;
+        courses.add(course);
+        return true;
+    }
 
+    public int totalTeachingCredits() {
+        int total = 0;
+        for (Course c : courses) {
+            total += c.getCredits();
+        }
+        return total;
+    }
+
+    public List<Course> getCourses() {
+        return List.copyOf(courses);
+    }
+    
+    
     @Override
     public int hashCode() {
         return Objects.hash(employeeId);
