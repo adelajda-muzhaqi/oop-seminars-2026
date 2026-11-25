@@ -3,7 +3,7 @@ package university;
 import java.util.ArrayList;
 import java.util.List;
 
-public class University {
+public class university {
 
     // ATRIBUTET
 
@@ -13,7 +13,7 @@ public class University {
 
     // KONSTRUKTORI
 
-    public University(String name) {
+    public university(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Emri i universitetit nuk mund te jete bosh: " + name);
         }

@@ -12,6 +12,7 @@ public class Student {
 	private String name;
 	private double gpa;
 	private final int enrolmentYear;
+	private static int lastIdIssued = 1000;
 	private final List<Course> courses = new ArrayList<>();
 	
 	// KONSTRUKTORI I PARE
@@ -64,6 +65,13 @@ public class Student {
         this.enrolmentYear = enrolmentYear;
 	}
 
+	public Student(String name, double gpa, int enrolmentYear) {
+		this(nextId(), name, gpa, enrolmentYear);
+	}
+	private static String nextId() {
+		lastIdIssued++;
+		return "S" + lastIdIssued;
+	}
 	  // METODAT
 	
 	public String getStudentId() {
