@@ -26,13 +26,6 @@ public class university {
         return name;
     }
 
-    public List<Student> getStudents() {
-        return List.copyOf(students);
-    }
-
-    public List<Course> getCourses() {
-        return List.copyOf(courses);
-    }
 
     // SHTIMI I STUDENTEVE DHE KURSEVE
 
@@ -42,10 +35,14 @@ public class university {
         return student;
     }
 
-    public Course addCourse(String code, String title, int credits, String semester, int maxStudents) {
-        Course course = new Course(code, title, credits, semester, maxStudents);
-        courses.add(course);
-        return course;
+    public Course addCourse(String code, String title, int credits,
+            String semester, int maxStudents) {
+    if (findCourse(code) != null) {
+    throw new IllegalArgumentException("Kursi ekziston tashme: " + code);
+    }
+    Course course = new Course(code, title, credits, semester, maxStudents);
+    courses.add(course);
+    return course;
     }
 
     // KERKIMI (kthen null nese nuk gjendet)
@@ -67,26 +64,34 @@ public class university {
         }
         return null;
     }
+    
+    public List<Student> getStudents(){
+    	return List.copyOf(students);
+    }
+    
+    public List<Course> getCourses(){
+    	return List.copyOf(courses);
+    }
 
     // REGJISTRIMI: vetem kjo metode ndryshon te dyja anet
 
     public boolean enrol(String studentId, String courseCode) {
-        Student student = findStudent(studentId);
-        Course course = findCourse(courseCode);
+        Student s = findStudent(studentId);
+        Course c = findCourse(courseCode);
 
-        if (student == null || course == null) {
+        if (s == null || c == null) {
             return false;                       // asgje nuk ka ndryshuar
         }
-        if (student.hasCourse(courseCode)) {
+        if (s.hasCourse(courseCode)) {
             return false;                       // tashme i regjistruar
         }
-        if (course.isFull()) {
+        if (c.isFull()) {
             return false;                       // kursi eshte plot
         }
-        if (!student.register(course)) {
+        if (!s.register(c)) {
             return false;                       // studenti ka arritur kufirin
         }
-        course.addStudent(student);             // vetem tani ndryshojne te dyja anet
+        c.addStudent(s);             // vetem tani ndryshojne te dyja anet
         return true;
     }
 

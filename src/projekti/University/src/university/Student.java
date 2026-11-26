@@ -14,6 +14,7 @@ public class Student {
 	private final int enrolmentYear;
 	private static int lastIdIssued = 1000;
 	private final List<Course> courses = new ArrayList<>();
+	private final static int _MAX_Students = 5;
 	
 	// KONSTRUKTORI I PARE
 	
@@ -124,9 +125,12 @@ public class Student {
 	    }
 
 	    public boolean register(Course course) {
-	        if (course == null) return false;
-	        if (courses.size() >= 6) return false;
-	        if (courses.contains(course)) return false;
+	        if (course == null) {
+	        	throw new IllegalArgumentException();}
+	        if (courses.size() >= 6) {
+	        	throw new IllegalArgumentException();}
+	        if (courses.contains(course)) {
+	        	throw new IllegalArgumentException();}
 	        courses.add(course);
 	        return true;
 	    }
@@ -171,6 +175,7 @@ public class Student {
 	    Student std = (Student) obj;    
 	    return this.studentId.equals((std.getStudentId()));
 }
+	    
 	    
 	    @Override
 	    public String toString() {
